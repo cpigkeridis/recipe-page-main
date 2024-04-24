@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Outfit:wght@400;600;700&display=swap"
+    rel="stylesheet">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+
+  <title>Frontend Mentor | Recipe page</title>
+
+
+  <style>
+    @media (max-width: 375px) {
+    body {
+        font-family: 'Outfit', sans-serif;
+        font-size: 14px; /* Slightly smaller font size for mobile */
+        background-color: hsl(330, 100%, 98%); /* Ensure the background applies */
+    }
+
+    .card-container, .preparation-container, .Ingredients-container, .Instructions-container, .Nutrition-container {
+        background-color: hsl(330, 100%, 98%); /* Consistent background for all containers */
+        overflow-wrap: break-word; /* Standard property */
+        white-space: normal; /* Ensures default wrapping at space boundaries */
+
+    }
+
+    .card-container h1, .card-container h2, .card-container h3,
+    .preparation-container h2, .Ingredients-container h2, .Instructions-container h2, .Nutrition-container h2 {
+        color: hsl(14, 45%, 36%); /* Nutmeg color for all headers */
+        font-family: 'Young Serif', serif;
+    }
+
+    .rounded-image {
+        max-width: 100%; /* Ensure images are not wider than the screen */
+        border-radius: 10px; /* Consistent with other rounded elements */
+    }
+
+    .Ingredients-container li,
+    .Instructions-container ol li {
+        font-size: 14px; /* Smaller text for mobile */
+        margin-bottom: 10px; /* Less space between items for compact view */
+    }
+
+    .Instructions-container ol li:before {
+        padding-left: 25px;  /* Adjust text position to show numbering clearly */
+        color: hsl(14, 45%, 36%); /* Nutmeg color for the numbers */
+        font-weight: bold;
+    }
+
+    .Nutrition-container table {
+        width: 100%; /* Full width for easier readability */
+    }
+
+    .Nutrition-container th, .Nutrition-container td {
+        padding: 6px; /* Adjust padding to fit smaller screens */
+        text-align: left;
+        font-size: 14px; /* Smaller font size for mobile tables */
+        color: hsl(14, 45%, 36%); /* Ensuring the color applies */
+        font-weight: bold;
+    }
+
+    .instruction-step {
+        color: hsl(24, 5%, 18%); /* Dark Charcoal color for the text before each colon */
+        font-weight: bold;
+    }
+}
+
+    @media (min-width: 1441px) { /* Desktop-specific styles */
+      body {
+        font-family: 'Outfit', sans-serif;
+        font-size: 16px;
+        background-color: hsl(330, 100%, 98%);
+      }
+
+      .Nutrition-container table {
+        width: 100%; /*uses the full width available */
+        border-collapse: collapse; /* Remove space between borders */
+      }
+
+      .Nutrition-container th {
+        padding: 7px; 
+        text-align: left; /* Align text to the left */
+      }
+
+      .Nutrition-container tr:not(:last-child) {
+        border-bottom: 1px solid #ccc;  /*light gray line below each row except the last one */
+      }
+
+      .Nutrition-container td {
+        padding: 8px; /*space around the text in each cell */
+        text-align: left;
+        color: hsl(14, 45%, 36%);
+        font-weight: bold;
+      }
+
+      .Instructions-container ol {
+        counter-reset: instruction-number; /* Initializes a counter */
+        list-style: none; /* Removes default numbering */
+        padding-left: 0; /* Adjust padding as needed */
+      }
+
+      .Instructions-container ol li {
+        counter-increment: instruction-number; /* Increments the counter */
+        position: relative;  /* show the numbering*/
+        padding-left: 30px;  /* push text to the left to show numbering*/
+        
+       
+      }
+
+      .Instructions-container ol li:before {
+        content: counter(instruction-number) ".";
+        /* Adds custom numbering */
+        position: absolute;
+        /* Positions the number absolutely within the li */
+        left: 0;
+        /* Aligns the number to the left of the content */
+        color: hsl(14, 45%, 36%);
+        /* Nutmeg color for the numbers */
+        font-weight: bold;
+        /* Optional: makes the number bold */
+      }
+
+
+      .instruction-step {
+        color: hsl(24, 5%, 18%);
+        font-weight: bold;
+        /* Dark Charcoal color for the text before each colon */
+      }
+
+      h1 {
+        font-family: 'Young Serif', serif;
+      }
+
+      h2 {
+        color: hsl(14, 45%, 36%);
+        font-family: 'Young Serif', serif;
+
+      }
+
+      h3 {
+        color: hsl(332, 51%, 32%);
+        font-family: 'Young Serif', serif;
+      }
+
+      .rounded-image {
+        border-radius: 20px; /*round edges*/
+        
+      }
+
+      .card-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+      }
+
+      .preparation-container {
+        background-color: hsl(330, 100%, 98%);
+        padding: 5px;
+        border-radius: 20px;  /*round edges*/
+      }
+
+      .Ingredients-container {
+        border-bottom: 1px solid #ccc;    /*light grey line under the list*/
+      
+      }
+
+      .Ingredients-container li {
+        margin-bottom: 20px; /* space between each list item */
+      }
+
+      .Instructions-container {
+        border-bottom: 1px solid #ccc;  /*light grey line under the list */
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card-container">
+    <div class="description-container">
+      <img src="assets/images/image-omelette.jpeg" alt="Omelette" width="600px" class="rounded-image">
+
+      <h1>Simple Omelette Recipe</h1>
+      <p>
+        An easy and quick dish, perfect for any meal. This classic omelette combines beaten eggs cooked
+        to perfection, optionally filled with your choice of cheese, vegetables, or meats.
+      </p>
+    </div>
+
+
+    <div class="preparation-container">
+      <h3>Preparation time</h2>
+        <ul>
+          <li>Total: Approximately 10 minutes</li>
+          <li>Preparation: 5 minutes</li>
+          <li>Cooking: 5 minutes</li>
+        </ul>
+    </div>
+
+    <div class="Ingredients-container">
+      <h2>Ingredients</h2>
+      <ul>
+        <li>2-3 large eggs</li>
+        <li>Salt, to taste</li>
+        <li>Pepper, to taste</li>
+        <li>1 tablespoon of butter or oil</li>
+        <li>Optional fillings: cheese, diced vegetables, cooked meats, herbs</li>
+      </ul>
+    </div>
+
+
+    <div class="Instructions-container">
+      <h2>Instructions</h2>
+      <ol>
+        <li>
+          <p>
+            <span class="instruction-step">Beat the eggs:</span> In a bowl, beat the eggs with a pinch of salt and
+            pepper until they are well mixed. You can add a tablespoon of water or milk for a fluffier texture.
+          </p>
+        </li>
+        <li>
+          <p>
+            <span class="instruction-step">Heat the pan:</span> Place a non-stick frying pan over medium heat and add
+            butter or oil.
+          </p>
+        </li>
+        <li>
+          <p>
+            <span class="instruction-step">Cook the omelette:</span> Once the butter is melted and bubbling, pour in the
+            eggs. Tilt the pan to ensure the eggs evenly coat the surface.
+          </p>
+        </li>
+        <li>
+          <p>
+            <span class="instruction-step">Add fillings (optional):</span> When the eggs begin to set at the edges but
+            are still slightly runny in the middle, sprinkle your chosen fillings over one half of the omelette.
+          </p>
+        </li>
+        <li>
+          <p>
+            <span class="instruction-step">Fold and serve:</span> As the omelette continues to cook, carefully lift one
+            edge and fold it over the fillings. Let it cook for another minute, then slide it onto a plate.
+          </p>
+        </li>
+        <li>
+          <p>
+            <span class="instruction-step">Enjoy:</span> Serve hot, with additional salt and pepper if needed.
+          </p>
+        </li>
+      </ol>
+    </div>
+
+
+    <div class="Nutrition-container">
+      <h2>Nutrition</h2>
+      <p>The table below shows nutritional values per serving without the additional fillings.</p>
+      <table>
+        <tr>
+          <th>Calories:</th>
+          <td>277kcal</td>
+        </tr>
+        <tr>
+          <th>Carbs</th>
+          <td>0g</td>
+        </tr>
+        <tr>
+          <th>Protein:</th>
+          <td>20g</td>
+        </tr>
+        <tr>
+          <th>Fat:</th>
+          <td>22g</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="#">cpigkeridis</a>.
+  </div>
+</body>
+
+</html>
